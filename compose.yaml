@@ -56,6 +56,25 @@ services:
       fim_network:
         ipv4_address: 10.0.100.30
 
+  feed_collector_db:
+    build:
+      context: ./feed-collector-db
+      dockerfile: Dockerfile
+    volumes:
+      - ./feed-collector-db:/var/lib/postgresql/data
+    tty: true
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      fim_network:
+        ipv4_address: 10.0.100.35
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "feed_collector"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   insights_api:
     build:
       context: ./insights-api
@@ -69,6 +88,26 @@ services:
     networks:
       fim_network:
         ipv4_address: 10.0.100.40
+
+  insights_api_db:
+    build:
+      context: ./insights-api-db
+      dockerfile: Dockerfile
+    volumes:
+      - ./insights-api-db:/var/lib/postgresql/data
+    tty: true
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      fim_network:
+        ipv4_address: 10.0.100.45
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "insights_api"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 
 networks:
   fim_network:
