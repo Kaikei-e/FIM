@@ -42,7 +42,7 @@ server {
   font-src 'self' data:;
   connect-src 'self' http://localhost:8080;"
   always;
- 
+
   server_tokens off;
   client_body_buffer_size 10K;
   client_header_buffer_size 1k;
