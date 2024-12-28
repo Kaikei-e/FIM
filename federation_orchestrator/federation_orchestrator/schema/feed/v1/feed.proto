@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package schema.feed.v1;
+
+option go_package = "federation_orchestrator/gen/schema/feed/v1;feedv1";
+
+message GetFeedRequest {
+  string name = 1;
+}
+
+message GetFeedResponse {
+  string feed = 1;
+}
+
+service FeedService {
+  rpc GetFeed(GetFeedRequest) returns (GetFeedResponse) {}
+}
