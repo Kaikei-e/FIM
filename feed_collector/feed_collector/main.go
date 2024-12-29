@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"feed_collector/router"
+	"feed_collector/slogger"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	slogger.Init()
+	slogger.Logger.Info("Application started")
+
+	router.Router()
 }
