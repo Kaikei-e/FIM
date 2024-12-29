@@ -1,12 +1,21 @@
 package protector
 
 import (
+	logger "feed_collector/slogger"
+	"log/slog"
 	"net/url"
+	"os"
 	"reflect"
 	"testing"
 )
 
 func TestAntiURLAttack(t *testing.T) {
+	// Mock the logger
+	mockLogger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	originalLogger := logger.Logger
+	logger.Logger = mockLogger
+	defer func() { logger.Logger = originalLogger }()
+
 	type args struct {
 		link string
 	}
@@ -47,14 +56,14 @@ func TestAntiURLAttack(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := AntiURLAttack(tt.args.link)
-			if (err != nil) != tt.wantErr {
+			if err != nil {
 				t.Errorf("AntiURLAttack() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want.url) {
 				t.Errorf("AntiURLAttack() = %v, want %v", got, tt.want.url)
 			}
-			if got != nil && got.Host != tt.want.host {
+			if (got != url.URL{}) && got.Host != tt.want.host {
 				t.Errorf("AntiURLAttack() = %v, want %v", got.Host, tt.want.host)
 			}
 		})
