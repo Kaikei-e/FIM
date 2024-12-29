@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	apiv1 "feed_collector/router/apiV1"
+	"feed_collector/slogger"
 	logger "feed_collector/slogger"
 
 	"github.com/labstack/echo/v4"
@@ -44,6 +45,7 @@ func Router() {
 		apiV1Group.POST("/feeds/collect/single", apiv1.CollectSingleFeed)
 	}
 
+	slogger.Logger.Info("Starting server on port 8000")
 	e.Logger.Fatal(e.Start(":8000"))
 }
 
