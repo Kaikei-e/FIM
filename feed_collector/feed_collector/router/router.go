@@ -41,7 +41,7 @@ func Router() {
 	apiV1Group := e.Group("/api/v1")
 	{
 		apiV1Group.GET("/healthCheck", healthCheck)
-		apiV1Group.GET("/feeds/collect/single", apiv1.CollectSingleFeed)
+		apiV1Group.POST("/feeds/collect/single", apiv1.CollectSingleFeed)
 	}
 
 	e.Logger.Fatal(e.Start(":8000"))
