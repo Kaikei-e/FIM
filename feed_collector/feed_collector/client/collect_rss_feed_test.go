@@ -21,7 +21,7 @@ func TestCollectRSSFeed(t *testing.T) {
 	defer func() { slogger.Logger = nil }()
 
 	// Mock the safeurl client
-	dur := time.Duration(5) * time.Second
+	dur := time.Duration(2) * time.Second
 	config := safeurl.GetConfigBuilder().
 		EnableIPv6(true).
 		SetAllowedSchemes("https").
