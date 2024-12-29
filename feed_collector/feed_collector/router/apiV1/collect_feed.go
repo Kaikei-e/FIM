@@ -20,7 +20,11 @@ func CollectSingleFeed(e echo.Context) error {
 		return e.JSON(400, "Failed to bind the request body.")
 	}
 
-	collect_feed_usecase.CollectSingleFeedUsecase(reqString.URL)
+	err = collect_feed_usecase.CollectSingleFeedUsecase(reqString.URL)
+	if err != nil {
+		slogger.Logger.Error("Failed to collect the feed.", "Caused by", err)
+		return e.JSON(500, "Failed to collect the feed.")
+	}
 
 	return e.JSON(200, "Successfully collected the feed.")
 }
