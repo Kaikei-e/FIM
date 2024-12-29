@@ -1,30 +1,26 @@
 package apiv1
 
 import (
-	"feed_collector/client"
-	"feed_collector/protector"
 	"feed_collector/slogger"
-	"fmt"
+	"feed_collector/usecase/collect_feed_usecase"
 
 	"github.com/labstack/echo/v4"
 )
 
+type targetURL struct {
+	URL string `json:"url"`
+}
+
 func CollectSingleFeed(e echo.Context) error {
-	cl := protector.InitClient()
+	var reqString targetURL
 
-	targetURL, err := protector.AntiURLAttack("https://lorem-rss.herokuapp.com/feed", cl)
+	err := e.Bind(&reqString)
 	if err != nil {
-		slogger.Logger.Error("Failed to parse the URL.", "Caused by", err)
-		return err
+		slogger.Logger.Error("Failed to bind the request body.", "Caused by", err)
+		return e.JSON(400, "Failed to bind the request body.")
 	}
 
-	feed, err := client.CollectRSSFeed(*targetURL, cl)
-	if err != nil {
-		slogger.Logger.Error("Failed to collect the feed.", "Caused by", err)
-		return err
-	}
+	collect_feed_usecase.CollectSingleFeedUsecase(reqString.URL)
 
-	fmt.Println(feed.Link)
-
-	return nil
+	return e.JSON(200, "Successfully collected the feed.")
 }
