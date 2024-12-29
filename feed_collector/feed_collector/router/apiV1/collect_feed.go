@@ -9,10 +9,10 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func CollectSingleFeed(g *echo.Context) error {
+func CollectSingleFeed(e echo.Context) error {
 	cl := protector.InitClient()
 
-	targetURL, err := protector.AntiURLAttack("https://www.example.com/rss", cl)
+	targetURL, err := protector.AntiURLAttack("https://lorem-rss.herokuapp.com/feed", cl)
 	if err != nil {
 		slogger.Logger.Error("Failed to parse the URL.", "Caused by", err)
 		return err
