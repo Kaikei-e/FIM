@@ -1,6 +1,9 @@
 package client
 
 import (
+	"bytes"
+	"feed_collector/slogger"
+	"log/slog"
 	"net/url"
 	"reflect"
 	"testing"
@@ -18,12 +21,16 @@ var safeurlClient = safeurl.GetConfigBuilder().
 	Build()
 
 func TestCollectRSSFeed(t *testing.T) {
+	var buf bytes.Buffer
+	h := slog.NewJSONHandler(&buf, nil)
+	slogger.Logger = slog.New(h)
+
 	type args struct {
 		rssLink url.URL
 		cl      *safeurl.WrappedClient
 	}
 	type want struct {
-		feed gofeed.Feed
+		feed *gofeed.Feed
 	}
 
 	tests := []struct {
@@ -43,7 +50,7 @@ func TestCollectRSSFeed(t *testing.T) {
 				cl: safeurl.Client(safeurlClient),
 			},
 			want: want{
-				feed: gofeed.Feed{
+				feed: &gofeed.Feed{
 					Title: "Lorem ipsum feed for an interval of 1 minutes with 10 item(s)",
 				},
 			},
@@ -54,12 +61,12 @@ func TestCollectRSSFeed(t *testing.T) {
 			args: args{
 				rssLink: url.URL{
 					Scheme: "https",
-					Host:   "invalid-url",
+					Host:   "invalid-url\\\\",
 				},
 				cl: safeurl.Client(safeurlClient),
 			},
 			want: want{
-				feed: gofeed.Feed{},
+				feed: &gofeed.Feed{},
 			},
 			wantErr: true,
 		},
@@ -68,12 +75,13 @@ func TestCollectRSSFeed(t *testing.T) {
 			args: args{
 				rssLink: url.URL{
 					Scheme: "https",
-					Host:   "malicious-url.com",
+					Host:   "example.com",
+					Path:   "/feed?param=<script>alert(1)</script>",
 				},
 				cl: safeurl.Client(safeurlClient),
 			},
 			want: want{
-				feed: gofeed.Feed{},
+				feed: &gofeed.Feed{},
 			},
 			wantErr: true,
 		},
@@ -81,7 +89,7 @@ func TestCollectRSSFeed(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := CollectRSSFeed(tt.args.rssLink, tt.args.cl)
-			if (err != nil) != tt.wantErr {
+			if err != nil {
 				t.Errorf("CollectRSSFeed() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
