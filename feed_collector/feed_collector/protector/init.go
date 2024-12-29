@@ -8,7 +8,7 @@ import (
 
 func InitClient() *safeurl.WrappedClient {
 
-	dur := time.Duration(2) * time.Second
+	dur := time.Duration(1) * time.Second
 	config := safeurl.GetConfigBuilder().
 		EnableIPv6(true).
 		SetAllowedSchemes("https").
