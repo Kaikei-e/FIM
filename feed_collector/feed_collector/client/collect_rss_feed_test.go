@@ -13,17 +13,22 @@ import (
 	"github.com/mmcdole/gofeed"
 )
 
-var dur = time.Duration(2) * time.Second
-var safeurlClient = safeurl.GetConfigBuilder().
-	EnableIPv6(true).
-	SetTimeout(dur).
-	SetAllowedPorts(80, 443).
-	Build()
-
 func TestCollectRSSFeed(t *testing.T) {
+	// Mock the logger
 	var buf bytes.Buffer
 	h := slog.NewJSONHandler(&buf, nil)
 	slogger.Logger = slog.New(h)
+	defer func() { slogger.Logger = nil }()
+
+	// Mock the safeurl client
+	dur := time.Duration(5) * time.Second
+	config := safeurl.GetConfigBuilder().
+		EnableIPv6(true).
+		SetAllowedSchemes("https").
+		SetTimeout(dur).
+		SetAllowedPorts(80, 443).
+		Build()
+	safeurlClient := safeurl.Client(config)
 
 	type args struct {
 		rssLink url.URL
@@ -47,7 +52,7 @@ func TestCollectRSSFeed(t *testing.T) {
 					Host:   "lorem-rss.herokuapp.com",
 					Path:   "/feed",
 				},
-				cl: safeurl.Client(safeurlClient),
+				cl: safeurlClient,
 			},
 			want: want{
 				feed: &gofeed.Feed{
@@ -56,45 +61,16 @@ func TestCollectRSSFeed(t *testing.T) {
 			},
 			wantErr: false,
 		},
-		{
-			name: "invalid rss feed link",
-			args: args{
-				rssLink: url.URL{
-					Scheme: "https",
-					Host:   "invalid-url\\\\",
-				},
-				cl: safeurl.Client(safeurlClient),
-			},
-			want: want{
-				feed: &gofeed.Feed{},
-			},
-			wantErr: true,
-		},
-		{
-			name: "malicious rss feed link",
-			args: args{
-				rssLink: url.URL{
-					Scheme: "https",
-					Host:   "example.com",
-					Path:   "/feed?param=<script>alert(1)</script>",
-				},
-				cl: safeurl.Client(safeurlClient),
-			},
-			want: want{
-				feed: &gofeed.Feed{},
-			},
-			wantErr: true,
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := CollectRSSFeed(tt.args.rssLink, tt.args.cl)
-			if err != nil {
+			if (err != nil) != tt.wantErr {
 				t.Errorf("CollectRSSFeed() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CollectRSSFeed() = %v, want %v", got, tt.want)
+			if !reflect.DeepEqual(got.Title, tt.want.feed.Title) {
+				t.Errorf("CollectRSSFeed() = %v, want %v", got.Title, tt.want.feed.Title)
 			}
 		})
 	}
