@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	apiv1 "feed_collector/router/apiV1"
 	logger "feed_collector/slogger"
 
 	"github.com/labstack/echo/v4"
@@ -37,10 +38,13 @@ func Router() {
 		},
 	}))
 
-	apiV1 := e.Group("/api/v1")
+	apiV1Group := e.Group("/api/v1")
 	{
-		apiV1.GET("/healthCheck", healthCheck)
+		apiV1Group.GET("/healthCheck", healthCheck)
+		apiV1Group.GET("/feeds/collect/single", apiv1.CollectSingleFeed)
 	}
+
+	e.Logger.Fatal(e.Start(":8000"))
 }
 
 func healthCheck(c echo.Context) error {
