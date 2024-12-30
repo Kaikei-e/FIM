@@ -19,20 +19,26 @@ jobs:
           node-version: lts/*
 
       - name: Install dependencies
-        working-directory: web/fim-web
-        run: npm ci
+        run: |
+          pwd
+          cd web/fim-web
+          npm ci
 
       - name: Run FIM-Web in dev mode
-        working-directory: web/fim-web
-        run: npm run dev
+        run: |
+          cd web/fim-web
+          npm run dev
 
       - name: Install Playwright Browsers
-        working-directory: e2e
-        run: npx playwright install --with-deps
+        run: |
+          cd e2e
+          npx playwright install --with-deps
 
       - name: Run Playwright tests
-        working-directory: e2e
-        run: npx playwright test
+        run: |
+          cd e2e
+          npx playwright test
+
 
       - uses: actions/upload-artifact@v4
         if: always()
