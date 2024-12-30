@@ -21,22 +21,22 @@ jobs:
       - name: Install dependencies
         run: |
           pwd
-          cd web/fim-web
+          cd /home/runner/work/FIM/FIM/web/fim-web
           npm ci
 
       - name: Run FIM-Web in dev mode
         run: |
-          cd web/fim-web
+          cd /home/runner/work/FIM/FIM/web/fim-web
           npm run dev
 
       - name: Install Playwright Browsers
         run: |
-          cd e2e
+          cd /home/runner/work/FIM/FIM/e2e
           npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: |
-          cd e2e
+          cd /home/runner/work/FIM/FIM/e2e
           npx playwright test
 
 
