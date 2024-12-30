@@ -44,10 +44,10 @@ services:
 
   feed_collector:
     build:
-      context: ./feed-collector
+      context: ./feed_collector
       dockerfile: Dockerfile
     volumes:
-      - ./feed-collector:/app/src
+      - ./feed_collector:/app/src
     ports:
       - 8000:8000
     tty: true
@@ -58,7 +58,7 @@ services:
 
   feed_collector_db:
     build:
-      context: ./feed-collector-db
+      context: ./feed_collector_db
       dockerfile: Dockerfile
     volumes:
       - ./feed-collector-db:/var/lib/postgresql/data
@@ -66,6 +66,11 @@ services:
     restart: always
     ports:
       - 5432:5432
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       fim_network:
         ipv4_address: 10.0.100.35
