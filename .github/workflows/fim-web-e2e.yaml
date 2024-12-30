@@ -23,12 +23,12 @@ jobs:
           pwd
           cd /home/runner/work/FIM/FIM/web/fim-web
           npm install -g pnpm
-          npm ci
+          pnpm ci
 
       - name: Run FIM-Web in dev mode
         run: |
           cd /home/runner/work/FIM/FIM/web/fim-web
-          npm run dev
+          pnpm dev
 
       - name: Install Playwright Browsers
         run: |
