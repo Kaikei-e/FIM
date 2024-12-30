@@ -18,8 +18,17 @@ jobs:
         with:
           node-version: lts/*
 
+      - name: Move to FIM-Web directory
+        run: cd  /home/runner/web/fim-web
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Run FIM-Web in dev mode
+        run: npm run dev
+
+      - name: Move to E2E directory
+        run: cd /home/runner/e2e
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
