@@ -23,7 +23,7 @@ jobs:
           pwd
           cd /home/runner/work/FIM/FIM/web/fim-web
           npm install -g pnpm
-          pnpm ci
+          pnpm install --frozen-lockfile
 
       - name: Run FIM-Web in dev mode
         run: |
