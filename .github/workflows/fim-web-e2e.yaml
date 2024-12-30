@@ -22,6 +22,7 @@ jobs:
         run: |
           pwd
           cd /home/runner/work/FIM/FIM/web/fim-web
+          ls -al
           npm ci
 
       - name: Run FIM-Web in dev mode
