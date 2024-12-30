@@ -28,7 +28,7 @@ jobs:
       - name: Run FIM-Web in dev mode
         run: |
           cd /home/runner/work/FIM/FIM/web/fim-web
-          pnpm dev
+          pnpm dev &
 
       - name: Install Playwright Browsers
         run: |
