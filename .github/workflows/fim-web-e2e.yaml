@@ -22,7 +22,7 @@ jobs:
         run: |
           pwd
           cd /home/runner/work/FIM/FIM/web/fim-web
-          ls -al
+          npm install -g pnpm
           npm ci
 
       - name: Run FIM-Web in dev mode
