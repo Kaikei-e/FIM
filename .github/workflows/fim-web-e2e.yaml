@@ -38,6 +38,7 @@ jobs:
       - name: Run Playwright tests
         run: |
           cd /home/runner/work/FIM/FIM/e2e
+          pnpm install
           npx playwright test
 
 
