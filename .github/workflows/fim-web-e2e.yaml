@@ -18,22 +18,20 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Move to FIM-Web directory
-        run: cd  /home/runner && ls -al
-
       - name: Install dependencies
+        working-directory: web/fim-web
         run: npm ci
 
       - name: Run FIM-Web in dev mode
+        working-directory: web/fim-web
         run: npm run dev
 
-      - name: Move to E2E directory
-        run: cd /home/runner/e2e
-
       - name: Install Playwright Browsers
+        working-directory: e2e
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
+        working-directory: e2e
         run: npx playwright test
 
       - uses: actions/upload-artifact@v4
