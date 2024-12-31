@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"context"
+	"federation_orchestrator/router"
+	"federation_orchestrator/slogger"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	ctx := context.Background()
+
+	slogger.Init()
+	slogger.Logger.Info("Application started")
+
+	router.Router(ctx)
+	slogger.Logger.Info("Application stopped")
 }
