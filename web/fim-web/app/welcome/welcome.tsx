@@ -10,7 +10,9 @@ export function Welcome() {
       <div className="content flex flex-col items-center justify-center min-h-screen header-text">
         <header className="flex flex-col items-center gap-9 pt-16 pb-4">
           <div className="w-[500px] max-w-[100vw] p-4 justify-items-start">
-            <h1 id="fim-title" className="text-3xl">Feed Insights Manager</h1>
+            <h1 id="fim-title" className="text-3xl">
+              Feed Insights Manager
+            </h1>
             <p className="text-xl">Welcome to FIM!</p>
             <ul className="mt-4 list-disc list-inside pl-4">
               <li>Manage your feed data</li>
