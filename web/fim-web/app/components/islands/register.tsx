@@ -12,12 +12,12 @@ export const Register = () => {
     <div className="h-full w-full flex-col bg-white p-4 rounded-lg shadow-md">
       <div>
         <h1>Register feeds</h1>
-        <p>Register your feeds here.</p>
+        <p>Register your feed that you want to track</p>
       </div>
       <div className="flex flex-col w-1/3 justify-center">
         <form onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="feedUrlInputField" className="mt-4">
-            Feed URL
+            RSS Feed XML Link
           </label>
           <input
             id="feedUrlInputField"
