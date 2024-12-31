@@ -20,5 +20,5 @@ func main() {
 	}
 	defer fimDB.Close()
 
-	router.Router()
+	router.Router(fimDB, ctx)
 }

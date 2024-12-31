@@ -2,6 +2,7 @@ package router
 
 import (
 	"context"
+	"database/sql"
 	"log/slog"
 	"net/http"
 
@@ -13,7 +14,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func Router() {
+func Router(db *sql.DB, ctx context.Context) {
 	middleware.SecureWithConfig(middleware.DefaultSecureConfig)
 
 	e := echo.New()
@@ -42,7 +43,9 @@ func Router() {
 	apiV1Group := e.Group("/api/v1")
 	{
 		apiV1Group.GET("/healthCheck", healthCheck)
-		apiV1Group.POST("/feeds/collect/single", apiv1.CollectSingleFeed)
+		apiV1Group.POST("/feeds/collect/single", func(c echo.Context) error {
+			return apiv1.CollectSingleFeed(c, db, ctx)
+		})
 	}
 
 	slogger.Logger.Info("Starting server on port 8000")
