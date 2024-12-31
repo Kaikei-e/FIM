@@ -17,8 +17,8 @@ export default function Home() {
         <div>
           <p>Search feeds</p>
         </div>
-        <div>
-          <Register url="https://example.com" />
+        <div className="h-full w-full">
+          <Register />
         </div>
         <div>
           <p>Latest feeds</p>
