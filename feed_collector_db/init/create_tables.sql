@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS feed_collector_db;
+
+\c feed_collector_db
+
 CREATE TABLE IF NOT EXISTS rss_feed_links (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     url VARCHAR(128) NOT NULL UNIQUE,
