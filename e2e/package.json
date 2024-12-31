@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:headed": "playwright test --headed",
-    "test:headless": "playwright test",
-    "test:ci": "npx playwright test --grep-invert @wip"
+    "test:headless": "playwright test"
   },
   "keywords": [],
   "author": "",
