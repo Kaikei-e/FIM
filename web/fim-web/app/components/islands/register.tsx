@@ -16,7 +16,9 @@ export const Register = () => {
       </div>
       <div className="flex flex-col w-1/3 justify-center">
         <form onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="feedUrlInputField" className="mt-4">Feed URL</label>
+          <label htmlFor="feedUrlInputField" className="mt-4">
+            Feed URL
+          </label>
           <input
             id="feedUrlInputField"
             type="url"
