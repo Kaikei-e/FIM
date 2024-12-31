@@ -9,6 +9,8 @@ require (
 )
 
 require (
+	github.com/doyensec/safeurl v0.2.1 // indirect
+	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
