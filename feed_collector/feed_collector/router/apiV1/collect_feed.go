@@ -1,6 +1,8 @@
 package apiv1
 
 import (
+	"context"
+	"database/sql"
 	"feed_collector/slogger"
 	"feed_collector/usecase/collect_feed_usecase"
 
@@ -11,7 +13,7 @@ type targetURL struct {
 	URL string `json:"url"`
 }
 
-func CollectSingleFeed(e echo.Context) error {
+func CollectSingleFeed(e echo.Context, db *sql.DB, ctx context.Context) error {
 	var reqString targetURL
 
 	err := e.Bind(&reqString)
@@ -20,7 +22,7 @@ func CollectSingleFeed(e echo.Context) error {
 		return e.JSON(400, "Failed to bind the request body.")
 	}
 
-	err = collect_feed_usecase.CollectSingleFeedUsecase(reqString.URL)
+	err = collect_feed_usecase.CollectSingleFeedUsecase(reqString.URL, db, ctx)
 	if err != nil {
 		slogger.Logger.Error("Failed to collect the feed.", "Caused by", err)
 		return e.JSON(500, "Failed to collect the feed.")
