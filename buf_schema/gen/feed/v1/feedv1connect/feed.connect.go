@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "github.com/Kaikei-e/FIM/buf_schema/schema/feed/v1"
+	v1 "github.com/Kaikei-e/FIM/buf_schema"
 	http "net/http"
 	strings "strings"
 )

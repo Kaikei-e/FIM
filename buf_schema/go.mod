@@ -1,4 +1,4 @@
-module github.com/Kaikei-e/FIM/buf_shema/schema
+module github.com/Kaikei-e/FIM/buf_shema
 
 go 1.23.2
 

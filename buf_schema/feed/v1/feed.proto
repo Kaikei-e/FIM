@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package feed.v1;
 
-option go_package = "github.com/Kaikei-e/FIM/buf_schema/schema/feed/v1;feedv1";
+option go_package = "github.com/Kaikei-e/FIM/buf_schema/schema/gen/feed/v1/feedv1connect;feedv1connect";
 
 message GetFeedRequest {
   string feed_url = 1;
