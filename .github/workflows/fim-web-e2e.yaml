@@ -39,7 +39,7 @@ jobs:
         run: |
           cd /home/runner/work/FIM/FIM/e2e
           pnpm install
-          pnpm test:ci
+          npx playwright test --grep-invert @wip
 
       - uses: actions/upload-artifact@v4
         if: always()
