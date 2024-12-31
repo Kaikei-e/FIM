@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package feed.v1;
+
+option go_package = "github.com/Kaikei-e/FIM/buf_schema/schema/feed/v1;feedv1";
+
+message GetFeedRequest {
+  string feed_url = 1;
+}
+
+message GetFeedResponse {
+  string title = 1;
+  string description = 2;
+  string url = 3;
+  string author = 4;
+  string published_at = 5;
+}
+
+service FeedService {
+  rpc GetFeed(GetFeedRequest) returns (GetFeedResponse) {}
+}
