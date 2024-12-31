@@ -13,7 +13,7 @@ import (
 	"github.com/doyensec/safeurl"
 )
 
-// AntiURLAttack は SSRF 攻撃を防ぐために URL を検証し、安全な場合にパース済みの URL を返します。
+// AntiURLAttack prevents SSRF attack
 func AntiURLAttack(link string, client *safeurl.WrappedClient) (*url.URL, error) {
 	parsedURL, err := url.Parse(link)
 	if err != nil {
