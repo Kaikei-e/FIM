@@ -1,10 +1,10 @@
 package apiv1
 
 import (
+	feedv1 "buf_schema/gen/feed/v1"
+	feedv1connect "buf_schema/gen/feed/v1/feedv1connect"
 	"context"
 	"errors"
-	feedv1 "federation_orchestrator/gen/schema/feed/v1"
-	"federation_orchestrator/gen/schema/feed/v1/feedv1connect"
 	"federation_orchestrator/slogger"
 	"fmt"
 	"net/http"

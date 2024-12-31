@@ -4,12 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	feedv1 "federation_orchestrator/gen/schema/feed/v1"
-	"federation_orchestrator/gen/schema/feed/v1/feedv1connect"
 	"federation_orchestrator/protector"
 	"federation_orchestrator/slogger"
 	"net/http"
 	"time"
+
+	feedv1 "buf_schema/gen/feed/v1"
+	feedv1connect "buf_schema/gen/feed/v1/feedv1connect"
 
 	"connectrpc.com/connect"
 	"github.com/doyensec/safeurl"
