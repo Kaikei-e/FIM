@@ -5,11 +5,15 @@ package schema.feed.v1;
 option go_package = "federation_orchestrator/gen/schema/feed/v1;feedv1";
 
 message GetFeedRequest {
-  string name = 1;
+  string feed_url = 1;
 }
 
 message GetFeedResponse {
-  string feed = 1;
+  string title = 1;
+  string description = 2;
+  string url = 3;
+  string author = 4;
+  string published_at = 5;
 }
 
 service FeedService {
