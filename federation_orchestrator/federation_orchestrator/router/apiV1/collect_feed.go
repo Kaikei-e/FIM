@@ -43,7 +43,7 @@ func CollectSingleFeed(e echo.Context, ctx context.Context) error {
 	fmt.Println(reqString)
 
 	s := feedv1connect.NewFeedServiceClient(http.DefaultClient,
-		"http://10.0.100.30:8080") // TODO: replace with the dynamic address
+		"http://10.0.100.30:8000") // TODO: replace with the dynamic address
 
 	reqRPC := connect.NewRequest(&feedv1.GetFeedRequest{
 		FeedUrl: reqString.URL,
