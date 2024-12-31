@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <div className="h-screen w-screen p-8 bg-slate-200 flex flex-col">
       <div className="flex flex-col">
-        <h1 className="text-2xl font-semibold">Islands</h1>
+        <h1 id="fim-home-title" className="text-2xl font-semibold">Islands</h1>
         <p>
           Islands is based on the multiple components that have different
           functinalities.
