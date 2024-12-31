@@ -12,9 +12,11 @@ CREATE INDEX IF NOT EXISTS idx_rss_feed_links_url ON rss_feed_links(url);
 CREATE TABLE IF NOT EXISTS feeds (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     rss_feed_link_id INTEGER NOT NULL,
+    author TEXT NOT NULL,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     url TEXT NOT NULL,
+    published_date TIMESTAMP NOT NULL,
     last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(rss_feed_link_id, url),
     FOREIGN KEY (rss_feed_link_id) REFERENCES rss_feed_links(id) ON DELETE CASCADE
