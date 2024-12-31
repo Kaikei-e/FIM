@@ -39,7 +39,7 @@ jobs:
         run: |
           cd /home/runner/work/FIM/FIM/e2e
           pnpm install
-          npx playwright test
+          pnpm test:ci
 
       - uses: actions/upload-artifact@v4
         if: always()
