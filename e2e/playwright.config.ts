@@ -34,6 +34,8 @@ export default defineConfig({
   expect: {
     timeout: 2 * 1000, // アサーションのタイムアウトを10秒に設定
   },
+  maxFailures: 5,
+  timeout: 3 * 1000, // テストのタイムアウトを60秒に設定
 
   /* Configure projects for major browsers */
   projects: [
