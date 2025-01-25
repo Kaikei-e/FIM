@@ -1,13 +1,13 @@
-FROM golang:1.23.3 AS builder
+FROM golang:1.23.5 AS builder
 
-ADD . /app
-WORKDIR /app
+ADD ./feed_collector /app/src
+WORKDIR /app/src
 
 RUN go build -o feed_collector main.go
 
 FROM scratch
 
-COPY --from=builder /app/feed_collector /app/feed_collector
+COPY --from=builder /app/src /app
 RUN chmod +x /app/feed_collector
 
 ENTRYPOINT ["./feed_collector"]

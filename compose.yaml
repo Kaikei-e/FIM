@@ -30,10 +30,10 @@ services:
 
   federation_orchestrator:
     build:
-      context: ./federation-orchestrator
+      context: ./federation_orchestrator
       dockerfile: Dockerfile
     volumes:
-      - ./federation-orchestrator:/app/src
+      - ./federation_orchestrator:/app/src
     ports:
       - 9000:9000
     tty: true
@@ -61,16 +61,16 @@ services:
       context: ./feed_collector_db
       dockerfile: Dockerfile
     volumes:
-      - ./feed-collector-db:/var/lib/postgresql/data
+      - ./feed_collector_db:/var/lib/postgresql/data
     tty: true
     restart: always
     ports:
       - 5432:5432
     environment:
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_PORT: ${POSTGRES_PORT}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${FEED_COLLECTOR_POSTGRES_HOST}
+      POSTGRES_PORT: ${FEED_COLLECTOR_POSTGRES_PORT}
+      POSTGRES_USER: ${FEED_COLLECTOR_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${FEED_COLLECTOR_POSTGRES_PASSWORD}
     networks:
       fim_network:
         ipv4_address: 10.0.100.35
@@ -80,38 +80,38 @@ services:
       timeout: 5s
       retries: 5
 
-  insights_api:
-    build:
-      context: ./insights-api
-      dockerfile: Dockerfile
-    volumes:
-      - ./insights-api:/app/src
-    ports:
-      - 9500:9500
-    tty: true
-    restart: always
-    networks:
-      fim_network:
-        ipv4_address: 10.0.100.40
+  # insights_api:
+  #   build:
+  #     context: ./insights-api
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./insights-api:/app/src
+  #   ports:
+  #     - 9500:9500
+  #   tty: true
+  #   restart: always
+  #   networks:
+  #     fim_network:
+  #       ipv4_address: 10.0.100.40
 
-  insights_api_db:
-    build:
-      context: ./insights-api-db
-      dockerfile: Dockerfile
-    volumes:
-      - ./insights-api-db:/var/lib/postgresql/data
-    tty: true
-    restart: always
-    ports:
-      - 5432:5432
-    networks:
-      fim_network:
-        ipv4_address: 10.0.100.45
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "insights_api"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  # insights_api_db:
+  #   build:
+  #     context: ./insights-api-db
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./insights-api-db:/var/lib/postgresql/data
+  #   tty: true
+  #   restart: always
+  #   ports:
+  #     - 5432:5432
+  #   networks:
+  #     fim_network:
+  #       ipv4_address: 10.0.100.45
+  #   healthcheck:
+  #     test: ["CMD", "pg_isready", "-U", "postgres", "-d", "insights_api"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
 
 
 networks:
