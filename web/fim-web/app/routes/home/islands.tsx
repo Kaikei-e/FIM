@@ -2,7 +2,7 @@ import { Register } from "~/components/islands/register";
 
 export default function Home() {
   return (
-    <div className="h-screen w-screen p-8 bg-slate-200 flex flex-col">
+    <div className="h-screen w-screen p-8 bg-slate-200 flex flex-col text-slate-900">
       <div className="flex flex-col">
         <h1 id="fim-home-title" className="text-2xl font-semibold">
           Island
