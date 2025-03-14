@@ -30,8 +30,8 @@ services:
 
   federation_orchestrator:
     build:
-      context: ./federation_orchestrator
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: federation_orchestrator/Dockerfile
     volumes:
       - ./federation_orchestrator:/app/src
     ports:
