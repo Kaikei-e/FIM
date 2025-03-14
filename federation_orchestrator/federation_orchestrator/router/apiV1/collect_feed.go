@@ -1,14 +1,15 @@
 package apiv1
 
 import (
-	feedv1 "buf_schema/gen/feed/v1"
-	feedv1connect "buf_schema/gen/feed/v1/feedv1connect"
 	"context"
 	"errors"
 	"federation_orchestrator/slogger"
 	"fmt"
 	"net/http"
 	"time"
+
+	feedv1 "buf_schema/gen/feed/v1"
+	feedv1connect "buf_schema/gen/feed/v1/feedv1connect"
 
 	"connectrpc.com/connect"
 	"github.com/doyensec/safeurl"

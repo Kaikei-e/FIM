@@ -5,9 +5,9 @@ WORKDIR /app/src
 
 RUN go build -o feed_collector main.go
 
-FROM scratch
+FROM alpine:latest
 
-COPY --from=builder /app/src /app
+COPY --from=builder /app/src/feed_collector /app/feed_collector
 RUN chmod +x /app/feed_collector
 
-ENTRYPOINT ["./feed_collector"]
+ENTRYPOINT ["/app/feed_collector"]

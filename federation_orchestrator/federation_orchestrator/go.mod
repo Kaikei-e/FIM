@@ -24,4 +24,4 @@ require (
 	google.golang.org/protobuf v1.36.5 // indirect
 )
 
-replace buf_schema => ../../buf_schema
+replace buf_schema => /app/buf_schema
