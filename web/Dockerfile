@@ -1,13 +1,14 @@
-FROM node:22.12.0-bullseye AS build
+FROM node:22.14.0-bullseye AS build
 
 WORKDIR /app
 
 COPY ./fim-web /app/
 
-RUN npm install &&\
+RUN npm install -g npm@latest && \
+  npm install && \
   npm run build
 
-FROM node:22.12.0-slim AS production
+FROM node:22.14.0-slim AS production
 
 WORKDIR /app
 
