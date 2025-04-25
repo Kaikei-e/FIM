@@ -3,10 +3,13 @@ module feed_collector
 go 1.23.3
 
 require (
+	buf_schema v0.0.0-00010101000000-000000000000
+	connectrpc.com/connect v1.18.1
 	github.com/doyensec/safeurl v0.2.1
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/mmcdole/gofeed v1.3.0
+	google.golang.org/protobuf v1.36.6
 )
 
 require (
@@ -22,7 +25,7 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
 	golang.org/x/time v0.11.0 // indirect
